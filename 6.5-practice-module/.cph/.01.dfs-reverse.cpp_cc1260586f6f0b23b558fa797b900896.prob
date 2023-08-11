@@ -1,0 +1,1 @@
+{"name":"Local: 01","url":"g:\\02.Phitron\\04.Algorithm\\6.5-practice-module\\01.dfs-reverse.cpp","tests":[{"id":1691746561482,"input":"4\n4\n1 2\n4 3\n3 2\n2 4","output":"3 4 2 1"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"g:\\02.Phitron\\04.Algorithm\\6.5-practice-module\\01.dfs-reverse.cpp","group":"local","local":true}
