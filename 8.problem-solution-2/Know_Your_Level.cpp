@@ -84,9 +84,23 @@ int main()
     int l;
     cin >> l;
 
+    bool flag = false;
+    for (int i = 0; i < N; i++)
+    {
+        if (l == level[i])
+        {
+            flag = true;
+            break;
+        }
+    }
+
     if (l == 0)
     {
         cout << 0 << " ";
+    }
+    else if (flag == false)
+    {
+        cout << -1 << " ";
     }
     else
     {

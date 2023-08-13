@@ -7,7 +7,8 @@
     Note: If there is no path in between the source and destination, print -1.
 
     Input Format
-    First line will contain N, the number of nodes and E, the number of edges. The value of nodes will be from 0 to 10^5.
+    First line will contain N, the number of nodes and E, the number of edges.
+    The value of nodes will be from 0 to 10^5.
     Next E lines will contain A, B which means there is a edge between node A and B.
     Next line will contain Q, the number of queries.
     For each query every line will contain S and D.
@@ -50,8 +51,11 @@ using namespace std;
 
 const int N = 1e5 + 5;
 vector<int> adj_list[N];
-int level[N] = {-1};
+
+int level[N];
 bool visited[N];
+
+vector<int> nodes;
 
 void bfs(int s)
 {
@@ -63,6 +67,7 @@ void bfs(int s)
     while (!q.empty())
     {
         int u = q.front();
+        nodes.push_back(u);
         q.pop();
 
         for (int v : adj_list[u])
@@ -82,7 +87,6 @@ int main()
 {
     int n, m;
     cin >> n >> m;
-    bool nodes[N];
 
     for (int i = 0; i < m; i++)
     {
@@ -90,8 +94,6 @@ int main()
         cin >> u >> v;
         adj_list[u].push_back(v);
         adj_list[v].push_back(u);
-        nodes[u] = true;
-        nodes[v] = true;
     }
 
     int case_n;
@@ -101,14 +103,23 @@ int main()
     {
         int s, d;
         cin >> s >> d;
+        bfs(s);
 
-        if (nodes[s] == false || nodes[d] == false)
+        bool flag = false;
+        for (int v : nodes)
+        {
+            if (v == d)
+            {
+                flag = true;
+            }
+        }
+
+        if (flag == false)
         {
             cout << -1 << endl;
         }
         else
         {
-            bfs(s);
 
             for (int i = 0; i < N; i++)
             {
@@ -120,9 +131,9 @@ int main()
             }
         }
 
+        nodes.clear();
         for (int i = 0; i < N; i++)
         {
-            level[i] = -1;
             visited[i] = false;
         }
     }
