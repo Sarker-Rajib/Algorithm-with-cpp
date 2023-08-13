@@ -6,11 +6,16 @@ vector<int> adj_list[N];
 bool visited[N];
 int level[N];
 
+vector<int> con_list[N];
+
 void dfs(int u)
 {
     visited[u] = true;
+    con_list[u].push_back(u);
+
     for (int v : adj_list[u])
     {
+        con_list[u].push_back(v);
         if (visited[v])
         {
             continue;
@@ -18,7 +23,7 @@ void dfs(int u)
         dfs(v);
     }
 }
-
+//
 void bfs(int s)
 {
     queue<int> q;
@@ -28,7 +33,7 @@ void bfs(int s)
     while (!q.empty())
     {
         int u = q.front();
-        // cout << "visiting " << u << endl;
+        cout << "visiting " << u << endl;
         q.pop();
 
         for (auto v : adj_list[u])
@@ -44,7 +49,7 @@ void bfs(int s)
         }
     }
 };
-
+//
 int main()
 {
     int n, m;
@@ -58,11 +63,27 @@ int main()
         adj_list[v].push_back(u);
     }
 
-    bfs(0);
-
-    for (int i = 0; i < n; i++)
+    int cc = 0;
+    for (int i = 1; i <= n; i++)
     {
-        cout << "level of " << i << ": " << level[i] << endl;
+        if (visited[i])
+        {
+            continue;
+        }
+        dfs(i);
+        cc++;
+    }
+
+    cout << "Number of CC : " << cc << endl;
+
+    for (int i = 1; i <= cc; i++)
+    {
+        cout << "Number of child for cc" << i << " is : ";
+        for (int x : con_list[i])
+        {
+            cout << x << " ";
+        }
+        cout << endl;
     }
 
     // _____

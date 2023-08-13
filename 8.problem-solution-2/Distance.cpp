@@ -45,36 +45,36 @@
     2
     0
 */
-
 #include <bits/stdc++.h>
 using namespace std;
 
 const int N = 1e5 + 5;
 vector<int> adj_list[N];
-
+int level[N] = {-1};
 bool visited[N];
-int dis = 0;
 
-void find_distance(int u, int target)
+void bfs(int s)
 {
-    visited[u] = true;
-    if (u == target)
-    {
-        return;
-    }
-    else
-    {
-        dis += 1;
-    }
+    queue<int> q;
+    q.push(s);
+    visited[s] = true;
+    level[s] = 0;
 
-    for (auto v : adj_list[u])
+    while (!q.empty())
     {
-        if (visited[v] == true)
+        int u = q.front();
+        q.pop();
+
+        for (int v : adj_list[u])
         {
-            continue;
+            if (visited[v])
+            {
+                continue;
+            }
+            q.push(v);
+            visited[v] = true;
+            level[v] = level[u] + 1;
         }
-
-        find_distance(v, target);
     }
 }
 
@@ -82,6 +82,7 @@ int main()
 {
     int n, m;
     cin >> n >> m;
+    bool nodes[N];
 
     for (int i = 0; i < m; i++)
     {
@@ -89,20 +90,42 @@ int main()
         cin >> u >> v;
         adj_list[u].push_back(v);
         adj_list[v].push_back(u);
+        nodes[u] = true;
+        nodes[v] = true;
     }
 
-    find_distance(0, 5);
+    int case_n;
+    cin >> case_n;
 
-    cout << dis;
+    for (int i = 0; i < case_n; i++)
+    {
+        int s, d;
+        cin >> s >> d;
 
-    // for (int i = 0; i < m; i++)
-    // {
-    //     for (auto v : adj_list[i])
-    //     {
-    //         cout << v << " ";
-    //     }
-    //     cout << endl;
-    // }
+        if (nodes[s] == false || nodes[d] == false)
+        {
+            cout << -1 << endl;
+        }
+        else
+        {
+            bfs(s);
+
+            for (int i = 0; i < N; i++)
+            {
+                if (i == d)
+                {
+                    cout << level[d] << endl;
+                    break;
+                }
+            }
+        }
+
+        for (int i = 0; i < N; i++)
+        {
+            level[i] = -1;
+            visited[i] = false;
+        }
+    }
 
     // _____
     return 0;

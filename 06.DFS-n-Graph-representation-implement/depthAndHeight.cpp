@@ -47,7 +47,7 @@ int main()
         adj[v].push_back(u);
     }
 
-    dfs(1);
+    dfs(0);
 
     for (int i = 1; i <= n; i++)
     {
