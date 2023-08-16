@@ -2,3 +2,4 @@ Counting Rooms: https://cses.fi/problemset/task/1192
 Labyrinth: https://cses.fi/problemset/task/1193
 Building Roads: https://cses.fi/problemset/task/1666
 Message Route: https://cses.fi/problemset/task/1667
+knights move: https://www.spoj.com/problems/NAKANJ/
