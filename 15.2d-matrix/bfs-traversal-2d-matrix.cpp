@@ -4,6 +4,6 @@ using namespace std;
 int main()
 {
 
-    // __________
+    // _____
     return 0;
 }
