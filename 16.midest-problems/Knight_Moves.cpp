@@ -1,10 +1,13 @@
 /*
 Problem Statement
 
-You will be given a chessboard of NxM size. You can move anywhere in the chessboard freely. You will be given two cells - the knight's cell K(Ki and Kj), and the queen's cell Q(Qi and Qj). You need to tell the minimum number of steps for the knight to attack the queen if the queen doesn't move.
+You will be given a chessboard of NxM size.
+You can move anywhere in the chessboard freely.
+You will be given two cells - the knight's cell K(Ki and Kj),
+and the queen's cell Q(Qi and Qj). Y
+ou need to tell the minimum number of steps for the knight to attack the queen if the queen doesn't move.
 
 A knight move in 8 directions. The directions are given below:image
-
 Input Format
 
 First line will contain T, the number of test cases.
