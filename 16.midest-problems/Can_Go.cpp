@@ -54,68 +54,136 @@ YES
 YES
 */
 
+// #include <bits/stdc++.h>
+// using namespace std;
+// const int N = 1e5 + 5;
+// vector<pair<int, int>> v[N];
+// int dis[N];
+// bool vis[N];
+
+// void dijkstra(int s)
+// {
+//     priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+
+//     pq.push({0, s});
+//     dis[s] = 0;
+//     while (!pq.empty())
+//     {
+//         pair<int, int> parent = pq.top();
+//         pq.pop();
+//         int parentNode = parent.second;
+//         if (vis[parentNode])
+//         {
+//             continue;
+//         }
+//         vis[parentNode] = true;
+//         int parentCost = parent.first;
+//         for (auto vpair : v[parentNode])
+//         {
+//             int childNode = vpair.first;
+//             int childCost = vpair.second;
+//             if (parentCost + childCost < dis[childNode])
+//             {
+//                 dis[childNode] = parentCost + childCost;
+//                 pq.push({dis[childNode], childNode});
+//             }
+//         }
+//     }
+// }
+// int main()
+// {
+//     int n, e;
+//     cin >> n >> e;
+
+//     for (int i = 0; i < e; i++)
+//     {
+//         int a, b, w;
+//         cin >> a >> b >> w;
+//         v[a].push_back({b, w});
+//     }
+
+//     for (int i = 1; i <= n; i++)
+//     {
+//         dis[i] = INT_MAX;
+//     }
+
+//     int s, t;
+//     cin >> s >> t;
+//     dijkstra(s);
+
+//     for (int i = 1; i <= t; i++)
+//     {
+//         int d, l;
+//         cin >> d >> l;
+//         if (dis[d] <= l)
+//         {
+//             cout << "YES" << endl;
+//         }
+//         else
+//         {
+//             cout << "NO" << endl;
+//         }
+//     }
+
+//     // ______
+//     return 0;
+// }
+
 #include <bits/stdc++.h>
 using namespace std;
-const int N = 1e5 + 5;
-vector<pair<int, int>> v[N];
-int dis[N];
-bool vis[N];
 
-void dijkstra(int s)
+typedef pair<int, int> pii;
+const int N = 1e5 + 7;
+const int INF = 1e9 + 7;
+vector<pair<pii, int>> list_of_edges;
+int d[N];
+int n, m;
+
+void bellman_ford(int s)
 {
-    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
-
-    pq.push({0, s});
-    dis[s] = 0;
-    while (!pq.empty())
+    for (int i = 1; i <= n; i++)
     {
-        pair<int, int> parent = pq.top();
-        pq.pop();
-        int parentNode = parent.second;
-        if (vis[parentNode])
+        d[i] = INF;
+    }
+
+    d[s] = 0;
+
+    for (int i = 1; i < n; i++)
+    {
+        for (auto edge : list_of_edges)
         {
-            continue;
-        }
-        vis[parentNode] = true;
-        int parentCost = parent.first;
-        for (auto vpair : v[parentNode])
-        {
-            int childNode = vpair.first;
-            int childCost = vpair.second;
-            if (parentCost + childCost < dis[childNode])
+            int u = edge.first.first;
+            int v = edge.first.second;
+            int w = edge.second;
+
+            if (d[u] != INF && d[v] > d[u] + w)
             {
-                dis[childNode] = parentCost + childCost;
-                pq.push({dis[childNode], childNode});
+                d[v] = d[u] + w;
             }
         }
     }
-}
+};
+
 int main()
 {
-    int n, e;
-    cin >> n >> e;
+    cin >> n >> m;
 
-    for (int i = 0; i < e; i++)
+    while (m--)
     {
-        int a, b, w;
-        cin >> a >> b >> w;
-        v[a].push_back({b, w});
-    }
-
-    for (int i = 1; i <= n; i++)
-    {
-        dis[i] = INT_MAX;
+        int u, v, w;
+        cin >> u >> v >> w;
+        list_of_edges.push_back({{u, v}, w});
     }
 
     int s, t;
     cin >> s >> t;
-    dijkstra(s);
+    bellman_ford(s);
 
     for (int i = 1; i <= t; i++)
     {
-        int d, l;
-        cin >> d >> l;
-        if (dis[d] <= l)
+        int dis, l;
+        cin >> dis >> l;
+        if (d[dis] <= l)
         {
             cout << "YES" << endl;
         }
@@ -125,6 +193,6 @@ int main()
         }
     }
 
-    // ______
+    // __________
     return 0;
 }

@@ -41,3 +41,89 @@ Sample Output 1
 
 -1
 */
+
+#include <bits/stdc++.h>
+#define pii pair<int, int>
+using namespace std;
+
+const int N = 1005;
+char matrx[N][N];
+bool vis[N][N];
+int dis[N][N];
+int n, m;
+
+vector<pii> path{
+    {-1, 0},
+    {1, 0},
+    {0, -1},
+    {0, 1}};
+
+bool isValid(int ci, int cj)
+{
+    if (ci >= 0 && ci < n && cj >= 0 && cj < m && matrx[ci][cj] == '.')
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+int dfs(int si, int sj)
+{
+    vis[si][sj] = true;
+    int count = 1;
+
+    for (auto d : path)
+    {
+        int ci = si + d.first;
+        int cj = sj + d.second;
+        if (isValid(ci, cj) && !vis[ci][cj])
+        {
+            count += dfs(ci, cj);
+        }
+    }
+
+    return count;
+}
+
+int main()
+{
+    cin >> n >> m;
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            cin >> matrx[i][j];
+        }
+    }
+
+    int minV = INT_MAX;
+
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            if (!vis[i][j] && matrx[i][j] == '.')
+            {
+                int x = dfs(i, j);
+                if (minV > x)
+                {
+                    minV = x;
+                }
+            }
+        }
+    }
+
+    if (minV == INT_MAX)
+    {
+        cout << -1;
+    }
+    else
+    {
+        cout << minV;
+    }
+    // _____
+    return 0;
+}

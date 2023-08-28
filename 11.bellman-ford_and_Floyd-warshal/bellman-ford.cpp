@@ -4,7 +4,7 @@ using namespace std;
 typedef pair<int, int> pii;
 const int N = 1e5 + 7;
 const int INF = 1e9 + 7;
-vector<pii> g[N];
+// vector<pii> g[N];
 vector<pair<pii, int>> list_of_edges;
 int d[N];
 int n, m;
@@ -44,7 +44,7 @@ int main()
     {
         int u, v, w;
         cin >> u >> v >> w;
-        g[u].push_back({v, w});
+        // g[u].push_back({v, w});
         list_of_edges.push_back({{u, v}, w});
     }
 
