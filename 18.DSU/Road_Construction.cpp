@@ -1,15 +1,17 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int parent[1000];
-int parentlevel[1000];
+const int N = 1e5 + 5;
+int parent[N];
+int parentSize[N];
+int mx = 0;
 
 void setA(int n)
 {
     for (int i = 1; i <= n; i++)
     {
         parent[i] = -1;
-        parentlevel[i] = 0;
+        parentSize[i] = 1;
     }
 };
 
@@ -25,23 +27,22 @@ int dsu_find(int node)
 
 void dsu_union(int a, int b)
 {
-    // union by level
+    // union by size
     int leaderA = dsu_find(a);
     int leaderB = dsu_find(b);
     if (leaderA != leaderB)
     {
-        if (parentlevel[leaderA] > parentlevel[leaderB])
+        if (parentSize[leaderA] > parentSize[leaderB])
         {
             parent[leaderB] = leaderA;
-        }
-        else if (parentlevel[leaderA] < parentlevel[leaderB])
-        {
-            parent[leaderA] = leaderB;
+            parentSize[leaderA] += parentSize[leaderB];
+            mx = max(mx, parentSize[leaderA]);
         }
         else
         {
-            parent[leaderB] = leaderA;
-            parentlevel[leaderA]++;
+            parent[leaderA] = leaderB;
+            parentSize[leaderB] += parentSize[leaderA];
+            mx = max(mx, parentSize[leaderB]);
         }
     }
 };
@@ -52,21 +53,23 @@ int main()
     cin >> n >> e;
     setA(n);
 
+    int cmpo = n;
+
     while (e--)
     {
         int a, b;
         cin >> a >> b;
-        dsu_union(a, b);
+
+        int leaderA = dsu_find(a);
+        int leaderB = dsu_find(b);
+        if (leaderA != leaderB)
+        {
+            cmpo--;
+            dsu_union(a, b);
+        }
+        cout << cmpo << " " << mx << endl;
     }
 
-    cout << dsu_find(5);
     // __________
     return 0;
 }
-
-// input
-// 7 4
-// 1 2
-// 2 3
-// 4 5
-// 6 5

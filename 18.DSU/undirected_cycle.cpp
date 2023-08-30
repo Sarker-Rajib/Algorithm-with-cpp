@@ -56,17 +56,29 @@ int main()
     {
         int a, b;
         cin >> a >> b;
-        dsu_union(a, b);
+        int leaderA = dsu_find(a);
+        int leaderB = dsu_find(b);
+
+        if (leaderA == leaderB)
+        {
+            cout << "Cycle Detected between: " << a << " " << b << endl;
+        }
+        else
+        {
+            dsu_union(a, b);
+        }
     }
 
-    cout << dsu_find(5);
     // __________
     return 0;
 }
 
-// input
-// 7 4
-// 1 2
-// 2 3
-// 4 5
-// 6 5
+/*
+input:
+5 5
+4 5
+1 2
+2 5
+1 4
+2 3
+*/
