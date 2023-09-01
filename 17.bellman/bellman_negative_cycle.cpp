@@ -54,9 +54,33 @@ int main()
         }
     }
 
-    for (int i = 1; i <= n; i++)
+    bool cycle = false;
+
+    for (int j = 0; j < vc.size(); j++)
     {
-        cout << "dis of " << i << " is " << dis[i] << " " << endl;
+        edge edg = vc[j];
+        int a = edg.u;
+        int b = edg.v;
+        int w = edg.w;
+
+        if (dis[a] + w < dis[b])
+        {
+            cycle = true;
+            break;
+            dis[b] = dis[a] + w;
+        }
+    }
+
+    if (cycle)
+    {
+        cout << "neg cycle detected";
+    }
+    else
+    {
+        for (int i = 1; i <= n; i++)
+        {
+            cout << "dis of " << i << " is " << dis[i] << " " << endl;
+        }
     }
 
     // __________

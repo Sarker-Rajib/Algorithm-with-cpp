@@ -6,14 +6,14 @@ int main()
     int n, e;
     cin >> n >> e;
 
-    int dis[n + 1][n + 1];
-    long long L_max = 9;
+    long long dis[n + 1][n + 1];
+    const long long INF = 1e18;
 
     for (int i = 1; i <= n; i++)
     {
         for (int j = 1; j <= n; j++)
         {
-            dis[i][j] = L_max;
+            dis[i][j] = INF;
             if (i == j)
             {
                 dis[i][j] = 0;
@@ -25,19 +25,13 @@ int main()
     {
         int a, b, w;
         cin >> a >> b >> w;
-        dis[a][b] = w;
-    }
 
-    for (int i = 1; i <= n; i++)
-    {
-        for (int j = 1; j <= n; j++)
+        if (dis[a][b] > w)
         {
-            cout << dis[i][j] << " ";
+            dis[a][b] = w;
         }
-        cout << endl;
     }
 
-    cout << endl;
     for (int k = 1; k <= n; k++)
     {
         for (int i = 1; i <= n; i++)
@@ -52,13 +46,21 @@ int main()
         }
     }
 
-    for (int i = 1; i <= n; i++)
+    int t;
+    cin >> t;
+
+    while (t--)
     {
-        for (int j = 1; j <= n; j++)
+        int x, y;
+        cin >> x >> y;
+        if (dis[x][y] == INF)
         {
-            cout << dis[i][j] << " ";
+            cout << -1 << endl;
         }
-        cout << endl;
+        else
+        {
+            cout << dis[x][y] << endl;
+        }
     }
 
     // __________
