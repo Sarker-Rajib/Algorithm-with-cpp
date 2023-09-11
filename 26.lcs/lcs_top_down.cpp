@@ -40,3 +40,8 @@ int main()
     // _____
     return 0;
 }
+
+/*
+abcfgr
+acfdgr
+*/
