@@ -30,44 +30,47 @@ int main()
             }
             else
             {
-                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+                dp[i][j] = 0;
             }
         }
     }
 
-    // for (int i = 0; i <= n; i++)
-    // {
-    //     for (int j = 0; j <= m; j++)
-    //     {
-
-    //         cout << dp[i][j] << " ";
-    //     }
-    //     cout << endl;
-    // }
-
-    int i = n, j = m;
-    string ans;
-    while (i != 0 && j != 0)
+    int mx = 0;
+    int ci, cj;
+    for (int i = 0; i <= n; i++)
     {
-        if (a[i - 1] == b[j - 1])
+        for (int j = 0; j <= m; j++)
         {
-            ans += a[i - 1];
-            j--;
-            i--;
+            if (dp[i][j] > mx)
+            {
+                mx = dp[i][j];
+                ci = i;
+                cj = j;
+            }
         }
-        else if (dp[i][j - 1] > dp[i - 1][j])
+    }
+
+    cout << mx << endl;
+
+    string ans;
+    while (ci != 0 && cj != 0)
+    {
+        if (a[ci - 1] == b[cj - 1])
         {
-            j--;
+            ans += a[ci - 1];
+            ci--;
+            cj--;
         }
         else
         {
-            i--;
+            break;
         }
     };
 
     reverse(ans.begin(), ans.end());
+
     cout << ans;
 
-    // _____
-    return 0;
+    // __The_End__ //
+    /* */ return 0; /* */
 }
